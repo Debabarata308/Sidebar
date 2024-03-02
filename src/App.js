@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+import Content from "./components/content/Content";
+import Page1 from "./components/Pages/Page1";
+import "./App.css";
+import SideBar from "./components/sidebar/SideBar";
+import SubMenu from "./components/sidebar/SubMenu";
+import About from "./components/Pages/About";
+
+const App = () => {
+  const [sidebarIsOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Content>
+        <Routes>
+          <Route exact path="/" component={() => "Hello"} />
+          <Route path="/about" element={<About />} />
+          <Route exact path="/Pages" component={() => "Pages"} />
+          <Route path="/faq" component={() => "FAQ"} />
+          <Route path="/contact" element={<Page1 />} />
+        </Routes>
+      </Content>
+    </Router>
   );
-}
+};
 
 export default App;
